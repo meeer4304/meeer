@@ -84,7 +84,6 @@ h1{margin:0;font-size:2.3rem;letter-spacing:-.03em}
 .link:hover,.link:focus-visible{transform:translateY(-3px);background:rgba(255,255,255,.08);border-color:rgba(255,90,60,.6);box-shadow:0 10px 28px rgba(255,90,60,.16)}
 .link span{color:var(--muted);font-size:.86rem}
 .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,.4)}
-.video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .copy{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 12px 12px 16px;border-radius:14px;background:rgba(0,0,0,.3);border:1px solid var(--border)}
 .copy code{font:500 1.15rem var(--font)}
@@ -105,38 +104,22 @@ a:focus-visible,.btn:focus-visible{outline:2px solid #ffb347;outline-offset:3px}
 .sub{margin:-12px 0 20px;color:var(--muted)}
 .copy code{overflow-wrap:anywhere}
 
-/* custom video player */
-.vplayer{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,.4);cursor:pointer;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
-.vplayer:hover{transform:scale(1.012);box-shadow:0 18px 44px rgba(0,0,0,.55)}
-.vplayer video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
-.vp-big{position:absolute;inset:0;margin:auto;width:60px;height:60px;border-radius:50%;border:none;display:grid;place-items:center;background:rgba(12,12,14,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;cursor:pointer;opacity:1;transform:scale(1);transition:opacity .3s,transform .3s;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 10px 30px rgba(0,0,0,.4)}
-.vp-big svg{width:24px;height:24px;margin-left:2px}
-.vplayer.playing .vp-big{opacity:0;transform:scale(.7)}
-.vplayer:hover .vp-big,.vplayer:focus-within .vp-big{opacity:1;transform:scale(1.08)}
-.vplayer.playing:hover .vp-big{opacity:.9;transform:scale(1)}
-.vp-bar{position:absolute;left:0;right:0;bottom:0;padding:10px 12px 9px;background:linear-gradient(to top,rgba(0,0,0,.8),transparent 100%);opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
-.vplayer:hover .vp-bar,.vplayer:focus-within .vp-bar,.vplayer.playing .vp-bar{opacity:1;transform:none}
-.vp-seek{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:rgba(255,255,255,.28);outline:none;margin:0 0 9px;cursor:pointer}
-.vp-seek::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--h,#ff5a3c);box-shadow:0 0 10px var(--h,#ff5a3c);margin-top:-4px}
-.vp-seek::-moz-range-thumb{width:12px;height:12px;border:none;border-radius:50%;background:var(--h,#ff5a3c);box-shadow:0 0 10px var(--h,#ff5a3c)}
-.vp-seek::-moz-range-track{height:4px;border-radius:99px;background:rgba(255,255,255,.28)}
-.vp-row{display:flex;align-items:center;gap:10px;color:#fff}
-.vp-row button{background:none;border:none;color:#fff;cursor:pointer;display:grid;place-items:center;width:24px;height:24px;padding:0;opacity:.9;transition:opacity .2s,transform .2s}
-.vp-row button:hover{opacity:1;transform:scale(1.12)}
-.vp-row svg{width:16px;height:16px}
-.vp-time{margin-left:auto;color:rgba(255,255,255,.78);font-size:.74rem;font-variant-numeric:tabular-nums}
 
-.vp-row .vp-fs{margin-left:2px}
-.vplayer:fullscreen{display:flex;align-items:center;justify-content:center;background:#000;border-radius:0}
-.vplayer:-webkit-full-screen{display:flex;align-items:center;justify-content:center;background:#000;border-radius:0}
-.vplayer:fullscreen video,.vplayer:-webkit-full-screen video{object-fit:contain;width:100%;height:100%}
-.vplayer:fullscreen .vp-big,.vplayer:-webkit-full-screen .vp-big{width:80px;height:80px}
-.vplayer:fullscreen .vp-big svg,.vplayer:-webkit-full-screen .vp-big svg{width:32px;height:32px}
-.vplayer:fullscreen .vp-bar,.vplayer:-webkit-full-screen .vp-bar{padding:18px 26px 20px}
-.vplayer:fullscreen .vp-row,.vplayer:-webkit-full-screen .vp-row{font-size:1.05rem}
-.vplayer:fullscreen .vp-row svg,.vplayer:-webkit-full-screen .vp-row svg{width:20px;height:20px}
-.vplayer.fs-zoom{animation:fsZoom .38s cubic-bezier(.2,.8,.2,1)}
-@keyframes fsZoom{0%{transform:scale(1)}45%{transform:scale(1.05)}100%{transform:scale(1)}}
+/* private gallery (Wadera HQ) */
+[hidden]{display:none!important}
+.vault-h{display:flex;align-items:center;gap:10px;font-size:1.1rem}
+.vault-h svg{width:18px;height:18px;color:#ffb347}
+.vault-h span{color:var(--muted);font-size:.86rem;margin-left:auto}
+.vrow{display:flex;gap:10px}
+.vin{flex:1;min-width:0;font:500 1rem var(--font);color:var(--text);padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.3);outline:none;transition:.2s}
+.vin:focus{border-color:rgba(99,102,241,.8);box-shadow:0 0 0 3px rgba(99,102,241,.2)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:1px solid var(--border);cursor:zoom-in;display:block;background:#17171b;transition:transform .25s,border-color .25s}
+.gal img:hover{transform:scale(1.03);border-color:rgba(99,102,241,.7)}
+.lb{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:rgba(6,6,8,.92);cursor:zoom-out}
+.lb.on{display:grid}
+.lb img{max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+@media(max-width:520px){.vrow{flex-direction:column}}
 
 /* load-in + extra hover */
 @keyframes slidein{from{opacity:0;transform:translate(var(--dx,0),var(--dy,70px)) scale(.88) rotate(var(--rot,0deg));filter:blur(12px)}}
@@ -226,6 +209,14 @@ a:focus-visible,.btn:focus-visible{outline:2px solid #ffb347;outline-offset:3px}
     <p class="st" role="status" aria-live="polite"></p>
     <a class="link" href="https://discord.gg/V2bx4nH69p" target="_blank" rel="noopener">Join Wadera HQ<span>Discord</span></a>
   </div>
+  <div class="card" id="vault">
+    <div class="vault-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><strong>Private gallery</strong><span>Members only</span></div>
+    <form id="vf" class="vrow" autocomplete="off"><input class="vin" id="vpw" type="password" placeholder="Enter password" aria-label="Password" required><button class="btn" type="submit">Unlock</button></form>
+    <p class="st" id="vst" role="status" aria-live="polite"></p>
+    <div class="gal" id="gal" hidden></div>
+    <button class="btn" id="vlock" type="button" hidden>Lock again</button>
+  </div>
+  <div class="lb" id="lb"><img alt=""></div>
 </section>
 
 <!-- DISCORD -->
@@ -246,7 +237,6 @@ function route(){
   const id=(location.hash.replace('#/','')||'home');
   const target=document.getElementById(id)||document.getElementById('home');
   views.forEach(v=>v.classList.toggle('on',v===target));
-  document.querySelectorAll('video').forEach(v=>v.pause());
   window.scrollTo(0,0);
 }
 addEventListener('hashchange',route);route();
@@ -270,12 +260,42 @@ document.querySelectorAll('[data-copy]').forEach(btn=>{
     t=setTimeout(()=>{btn.classList.remove('done');btn.textContent=label;st.textContent=''},2200);
   };
 });
+
+/*CRYPTO-START*/
+const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function keyFrom(pw,salt,iter){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt']);}
+async function decItem(key,s){const u=unb64(s);return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:u.subarray(0,12)},key,u.subarray(12)));}
+/*CRYPTO-END*/
+/* Private gallery: images live encrypted in vault.json and are decrypted in the browser with the password */
+(function(){
+  const f=document.getElementById('vf');if(!f)return;
+  const pw=document.getElementById('vpw'),st=document.getElementById('vst'),gal=document.getElementById('gal'),lockBtn=document.getElementById('vlock'),lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+  let urls=[];
+  function lock(){urls.forEach(u=>URL.revokeObjectURL(u));urls=[];gal.innerHTML='';gal.hidden=true;lockBtn.hidden=true;f.hidden=false;pw.value='';st.textContent='';lb.classList.remove('on');}
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();st.textContent='Unlocking\u2026';
+    let vault;
+    try{const r=await fetch('vault.json',{cache:'no-cache'});if(!r.ok)throw 0;vault=await r.json();}catch(_){st.textContent='Nothing here yet.';return;}
+    if(!vault.items||!vault.items.length){st.textContent='Nothing here yet.';return;}
+    try{
+      const key=await keyFrom(pw.value,unb64(vault.salt),vault.iter);
+      const made=[];
+      for(const it of vault.items){
+        let bytes;
+        try{bytes=await decItem(key,it.d);}catch(_){made.forEach(u=>URL.revokeObjectURL(u));st.textContent='Wrong password.';return;}
+        made.push(URL.createObjectURL(new Blob([bytes],{type:it.t||'image/jpeg'})));
+      }
+      urls=made;
+      urls.forEach(u=>{const im=document.createElement('img');im.src=u;im.alt='';im.loading='lazy';im.addEventListener('click',()=>{lbi.src=u;lb.classList.add('on');});gal.appendChild(im);});
+      f.hidden=true;gal.hidden=false;lockBtn.hidden=false;st.textContent='';pw.value='';
+    }catch(err){st.textContent='Something went wrong.';}
+  });
+  lockBtn.addEventListener('click',lock);
+  lb.addEventListener('click',()=>lb.classList.remove('on'));
+  addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on');});
+  addEventListener('hashchange',lock);
+})();
 </script>
-
-<script type="text/javascript" src="/unprotected/back_to_spaceship.js?hash=4975d460e508829e8fb64d3962bc44ad35f3a95a"></script>
-
-
-<script type="text/javascript" src="/unprotected/back_to_spaceship.js?hash=4975d460e508829e8fb64d3962bc44ad35f3a95a"></script>
 
 </body>
 </html>
