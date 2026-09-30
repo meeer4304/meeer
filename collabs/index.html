@@ -135,6 +135,15 @@ a:focus-visible,.btn:focus-visible{outline:2px solid #ffb347;outline-offset:3px}
 .vplayer.fs-zoom{animation:fsZoom .38s cubic-bezier(.2,.8,.2,1)}
 @keyframes fsZoom{0%{transform:scale(1)}45%{transform:scale(1.05)}100%{transform:scale(1)}}
 
+
+/* embedded Google Drive videos */
+.vframe{position:relative;width:100%;aspect-ratio:var(--ar,16/9);border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border);box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.vgrid.r-16x9{grid-template-columns:1fr;gap:20px}
+.vgrid.r-9x16{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:460px;margin-inline:auto}
+.vgrid.r-1x1{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:520px){.vgrid.r-9x16{grid-template-columns:repeat(2,minmax(0,1fr))}.vgrid.r-1x1{grid-template-columns:1fr}}
+
 /* load-in + extra hover */
 @keyframes slidein{from{opacity:0;transform:translate(var(--dx,0),var(--dy,70px)) scale(.88) rotate(var(--rot,0deg));filter:blur(12px)}}
 @keyframes drop{from{opacity:0;transform:translateY(-36px)}}
@@ -185,40 +194,28 @@ a:focus-visible,.btn:focus-visible{outline:2px solid #ffb347;outline-offset:3px}
   <a class="back" href="#/">&larr; Collabs</a>
   <h2 class="page-title">Leek The Petite</h2>
   <p class="sub">Work we did together</p>
-  <div class="grid">
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/leek-the-petite-1.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/leek-the-petite-2.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-  </div>
+  <div class="grid vgrid" id="g-p1"></div>
 </section>
 
 <section class="view" id="p2">
   <a class="back" href="#/">&larr; Collabs</a>
   <h2 class="page-title">Sallu</h2>
   <p class="sub">Work we did together</p>
-  <div class="grid">
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/sallu-1.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/sallu-2.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-  </div>
+  <div class="grid vgrid" id="g-p2"></div>
 </section>
 
 <section class="view" id="p3">
   <a class="back" href="#/">&larr; Collabs</a>
   <h2 class="page-title">Mr Baller</h2>
   <p class="sub">Work we did together</p>
-  <div class="grid">
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/mr-baller-1.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/mr-baller-2.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-  </div>
+  <div class="grid vgrid" id="g-p3"></div>
 </section>
 
 <section class="view" id="p4">
   <a class="back" href="#/">&larr; Collabs</a>
   <h2 class="page-title">sneakinfinity</h2>
   <p class="sub">Work we did together</p>
-  <div class="grid">
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/sneakinfinity-1.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-    <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/collabs/sneakinfinity-2.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-  </div>
+  <div class="grid vgrid" id="g-p4"></div>
 </section>
 
 </div>
@@ -266,13 +263,45 @@ function autoplayVisible(){
   document.querySelectorAll('.view.on .vplayer video').forEach(v=>{v.muted=true;const p=v.play();if(p&&p.catch)p.catch(()=>{});});
   document.querySelectorAll('.view:not(.on) .vplayer video').forEach(v=>v.pause());
 }
+
+/* ===== VIDEO LINKS (Google Drive) — edit here =====
+   ratio: "16/9" | "9/16" | "1/1"  (shape of the video box) */
+const PAGES={
+  p1:{ratio:"9/16",links:[ /* Leek The Petite */
+    "https://drive.google.com/file/d/1T0-uFRCx7W_Gb-MDqz3WyvSNfsvuptkm/view?usp=sharing",
+    "https://drive.google.com/file/d/1SDpQSMzYgs7mm-BflIwciWhPI77rTOZZ/view?usp=sharing"]},
+  p2:{ratio:"16/9",links:[ /* Sallu */
+    "https://drive.google.com/file/d/1k0HEpvT_gUkn0OQOOueNnx7ufXm32Sr-/view?usp=sharing",
+    "https://drive.google.com/file/d/1Ac4NNItVbCZEyXCL1pXo3Dq4QcYbu1LQ/view?usp=sharing"]},
+  p3:{ratio:"1/1",links:[ /* Mr Baller */
+    "https://drive.google.com/file/d/1FOncPv_KeoaOovDbmSP8oW-Q8pLv1CIV/view?usp=sharing",
+    "https://drive.google.com/file/d/1XmX_rBj-YDwMOraVZ8VqT3PEQfMEz6AT/view?usp=sharing"]},
+  p4:{ratio:"16/9",links:[ /* sneakinfinity */
+    "https://drive.google.com/file/d/1IhgD194UZXpcynjMuz0kiRQrRx2uDTr4/view?usp=sharing"]}
+};
+function driveId(l){const m=(l||'').match(/drive\.google\.com\/file\/d\/([\w-]+)/)||(l||'').match(/[?&]id=([\w-]+)/);return m?m[1]:null;}
+function buildPage(id){
+  const grid=document.getElementById('g-'+id),cfg=PAGES[id];
+  if(!grid||!cfg||grid.dataset.built)return;
+  grid.dataset.built='1';
+  grid.classList.add('r-'+cfg.ratio.replace('/','x'));
+  cfg.links.forEach((l,i)=>{
+    const d=driveId(l);if(!d)return;
+    const box=document.createElement('div');box.className='vframe';box.style.setProperty('--ar',cfg.ratio);
+    const f=document.createElement('iframe');
+    f.src='https://drive.google.com/file/d/'+d+'/preview';f.title=id+' video '+(i+1);
+    f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.referrerPolicy='no-referrer';
+    box.appendChild(f);grid.appendChild(box);
+  });
+}
+function clearPage(id){const g=document.getElementById('g-'+id);if(g){g.innerHTML='';delete g.dataset.built;}}
 const views=[...document.querySelectorAll('.view')];
 function route(){
   const id=location.hash.replace('#/','')||'home';
   const target=document.getElementById(id)||document.getElementById('home');
   views.forEach(v=>v.classList.toggle('on',v===target));
   document.querySelectorAll('video').forEach(v=>v.pause());
-  window.scrollTo(0,0);wirePlayers(target);autoplayVisible();
+  window.scrollTo(0,0);Object.keys(PAGES).forEach(k=>k===target.id?buildPage(k):clearPage(k));
 }
 addEventListener('hashchange',route);route();
 </script>
