@@ -275,8 +275,9 @@ async function decItem(key,s){const u=unb64(s);return new Uint8Array(await crypt
   f.addEventListener('submit',async e=>{
     e.preventDefault();st.textContent='Unlocking\u2026';
     let vault;
-    try{const r=await fetch('vault.json',{cache:'no-cache'});if(!r.ok)throw 0;vault=await r.json();}catch(_){st.textContent='Nothing here yet.';return;}
+    try{const r=await fetch('vault.json',{cache:'no-cache'});if(r.status===404){st.textContent='Nothing here yet.';return;}if(!r.ok)throw 0;vault=await r.json();}catch(_){st.textContent=(location.protocol==='file:')?'Can\'t read vault.json from a local file. Test it on the live site or with a local server.':'Couldn\'t load the gallery. Try again.';return;}
     if(!vault.items||!vault.items.length){st.textContent='Nothing here yet.';return;}
+    if(!vault.salt||!vault.iter||!vault.items[0].d){st.textContent='vault.json is not in the right format (it must be the file made by vault-maker.html).';return;}
     try{
       const key=await keyFrom(pw.value,unb64(vault.salt),vault.iter);
       const made=[];
@@ -288,7 +289,7 @@ async function decItem(key,s){const u=unb64(s);return new Uint8Array(await crypt
       urls=made;
       urls.forEach(u=>{const im=document.createElement('img');im.src=u;im.alt='';im.loading='lazy';im.addEventListener('click',()=>{lbi.src=u;lb.classList.add('on');});gal.appendChild(im);});
       f.hidden=true;gal.hidden=false;lockBtn.hidden=false;st.textContent='';pw.value='';
-    }catch(err){st.textContent='Something went wrong.';}
+    }catch(err){st.textContent='Something went wrong: '+((err&&err.message)||err);}
   });
   lockBtn.addEventListener('click',lock);
   lb.addEventListener('click',()=>lb.classList.remove('on'));
