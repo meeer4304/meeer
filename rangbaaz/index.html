@@ -135,6 +135,11 @@ a:focus-visible,.btn:focus-visible{outline:2px solid #ffb347;outline-offset:3px}
 .vplayer.fs-zoom{animation:fsZoom .38s cubic-bezier(.2,.8,.2,1)}
 @keyframes fsZoom{0%{transform:scale(1)}45%{transform:scale(1.05)}100%{transform:scale(1)}}
 
+
+/* embedded (Google Drive / YouTube) player */
+.vframe{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
 /* load-in + extra hover */
 @keyframes slidein{from{opacity:0;transform:translate(var(--dx,0),var(--dy,70px)) scale(.88) rotate(var(--rot,0deg));filter:blur(12px)}}
 @keyframes drop{from{opacity:0;transform:translateY(-36px)}}
@@ -172,10 +177,7 @@ a:focus-visible,.btn:focus-visible{outline:2px solid #ffb347;outline-offset:3px}
   <h2 class="page-title">Rangbaaz Collection</h2>
   <div class="card">
     <div class="video"><img src="rangbaaz.jpg" alt="Rangbaaz Collection" onerror="this.remove()"></div>
-    <div class="grid">
-      <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/rangbaaz-1.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-      <div class="vplayer"><video muted loop playsinline preload="metadata"><source src="../videos/rangbaaz-2.mp4" type="video/mp4"></video><button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div></div>
-    </div>
+    <div class="grid" id="videoGrid"></div>
   </div>
 </div></div>
 <script>
@@ -220,7 +222,70 @@ function wirePlayers(root){
 function autoplayAll(){
   document.querySelectorAll('.vplayer video').forEach(v=>{v.muted=true;const p=v.play();if(p&&p.catch)p.catch(()=>{});});
 }
-wirePlayers();autoplayAll();
+
+/* ===== VIDEO LINKS: edit/add here ===== */
+const VIDEOS={
+  "rangbaaz1":"/videos/rangbaaz-1.mp4",
+  "rangbaaz2":"/videos/rangbaaz-2.mp4"
+};
+const PAGE_PREFIX="rangbaaz";
+const PLAYER_HTML='<button class="vp-big" aria-label="Play/Pause"></button><div class="vp-bar"><input type="range" class="vp-seek" min="0" max="100" value="0" aria-label="Seek"><div class="vp-row"><button class="vp-play" aria-label="Play/Pause"></button><span class="vp-time">0:00 / 0:00</span><button class="vp-mute" aria-label="Mute/Unmute"></button><button class="vp-fs" aria-label="Fullscreen"></button></div></div>';
+function driveId(link){
+  link=(link||'').trim();
+  const m=link.match(/drive\.google\.com\/file\/d\/([\w-]+)/)||link.match(/drive\.google\.com\/(?:open|uc)\?[^#]*id=([\w-]+)/)||link.match(/docs\.google\.com\/file\/d\/([\w-]+)/);
+  return m?m[1]:null;
+}
+function ytUrl(link){
+  const m=(link||'').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  return m?'https://www.youtube.com/embed/'+m[1]+'?rel=0&playsinline=1':null;
+}
+function makeFrame(url,title){
+  const box=document.createElement('div');box.className='vframe';
+  const f=document.createElement('iframe');
+  f.src=url;f.loading='lazy';f.title=title;
+  f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.referrerPolicy='no-referrer';
+  box.appendChild(f);return box;
+}
+function makeCustom(src,onFail){
+  const box=document.createElement('div');box.className='vplayer';
+  const v=document.createElement('video');
+  v.muted=true;v.loop=true;v.playsInline=true;v.preload='metadata';v.referrerPolicy='no-referrer';v.src=src;
+  box.appendChild(v);box.insertAdjacentHTML('beforeend',PLAYER_HTML);
+  if(onFail){
+    let ok=false;
+    v.addEventListener('loadedmetadata',()=>{ok=true;});
+    v.addEventListener('error',()=>{if(!ok)onFail();});
+    setTimeout(()=>{if(!ok)onFail();},12000);
+  }
+  return box;
+}
+function buildVideos(){
+  const grid=document.getElementById('videoGrid');
+  const keys=Object.keys(VIDEOS).filter(k=>k.toLowerCase().startsWith(PAGE_PREFIX))
+    .sort((x,y)=>(parseInt(x.replace(/\D/g,''))||0)-(parseInt(y.replace(/\D/g,''))||0));
+  keys.forEach(key=>{
+    const link=VIDEOS[key],id=driveId(link),yt=ytUrl(link);
+    let box;
+    if(id){
+      /* custom player fed by Drive's direct-download URL; falls back to Drive's own player if it can't load */
+      const direct='https://drive.usercontent.google.com/download?id='+id+'&export=download&confirm=t';
+      let failed=false;
+      box=makeCustom(direct,()=>{
+        if(failed)return;failed=true;
+        const fb=makeFrame('https://drive.google.com/file/d/'+id+'/preview',key);
+        box.replaceWith(fb);
+      });
+    }else if(yt){
+      box=makeFrame(yt,key);
+    }else{
+      box=makeCustom(link);
+    }
+    grid.appendChild(box);
+  });
+  wirePlayers(grid);autoplayAll();
+}
+buildVideos();
+
 </script>
 
 <script type="text/javascript" src="/unprotected/back_to_spaceship.js?hash=4975d460e508829e8fb64d3962bc44ad35f3a95a"></script>
